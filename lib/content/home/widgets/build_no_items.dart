@@ -1,4 +1,4 @@
-import 'package:fiscal_validator/providers/home_provider/home_provider.dart';
+import 'package:fiscal_validator/content/home/controllers/home_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -36,10 +36,7 @@ class NoItems extends StatelessWidget {
                 'A Organização dos arquivos deve ser XML/NFC/Emitidas ou XML/NF/Emitidas',
                 textAlign: TextAlign.center,
                 style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                      color: Theme.of(context)
-                          .colorScheme
-                          .onBackground
-                          .withOpacity(0.7),
+                      color: Theme.of(context).colorScheme.onSurface.withOpacity(0.7),
                     ),
               ),
             ],

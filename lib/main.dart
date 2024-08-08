@@ -1,6 +1,6 @@
-import 'package:fiscal_validator/pages/home_page/home_page.dart';
-import 'package:fiscal_validator/providers/home_provider/home_provider.dart';
-import 'package:fiscal_validator/theme/theme.dart';
+import 'package:fiscal_validator/content/home/controllers/home_provider.dart';
+import 'package:fiscal_validator/content/home/pages/home_page.dart';
+import 'package:fiscal_validator/global/theme/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 

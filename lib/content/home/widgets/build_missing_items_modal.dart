@@ -1,4 +1,4 @@
-import 'package:fiscal_validator/providers/home_provider/home_provider.dart';
+import 'package:fiscal_validator/content/home/controllers/home_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -45,20 +45,14 @@ class MissingItems extends StatelessWidget {
                 itemBuilder: (context, index) => Column(
                   children: [
                     ListTile(
-                      onTap: () => homeProvider.copyText(context,
-                          text: missingItems[index].toString()),
-                      contentPadding: const EdgeInsets.symmetric(
-                          horizontal: 20, vertical: 10),
+                      onTap: () => homeProvider.copyText(context, text: missingItems[index].toString()),
+                      contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                       title: Text(
                         missingItems[index].toString(),
-                        style: Theme.of(context)
-                            .textTheme
-                            .titleLarge!
-                            .copyWith(fontWeight: FontWeight.bold),
+                        style: Theme.of(context).textTheme.titleLarge!.copyWith(fontWeight: FontWeight.bold),
                       ),
                       trailing: IconButton(
-                        onPressed: () => homeProvider.copyText(context,
-                            text: missingItems[index].toString()),
+                        onPressed: () => homeProvider.copyText(context, text: missingItems[index].toString()),
                         icon: const Icon(Icons.copy),
                       ),
                     ),
@@ -73,11 +67,7 @@ class MissingItems extends StatelessWidget {
           ],
         ),
       ),
-      actions: [
-        TextButton(
-            onPressed: () => Navigator.pop(context),
-            child: const Text('Fechar'))
-      ],
+      actions: [TextButton(onPressed: () => Navigator.pop(context), child: const Text('Fechar'))],
     );
   }
 }

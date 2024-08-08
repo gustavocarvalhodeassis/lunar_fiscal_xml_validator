@@ -1,6 +1,5 @@
-import 'package:fiscal_validator/pages/home_page/widgets/build_main_body.dart';
-import 'package:fiscal_validator/pages/home_page/widgets/build_no_items.dart';
-import 'package:fiscal_validator/providers/home_provider/home_provider.dart';
+import 'package:fiscal_validator/content/home/controllers/home_provider.dart';
+import 'package:fiscal_validator/content/home/widgets/build_main_body.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -13,7 +12,7 @@ class HomePage extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Validar XMLs'),
+        title: const Text('Lunar Validador XMLs'),
         actions: [
           IconButton(
             onPressed: () => homeProvider.reset(),
@@ -22,19 +21,13 @@ class HomePage extends StatelessWidget {
         ],
       ),
       body: Center(
-        child: Container(
+        child: SizedBox(
           width: double.infinity,
-          constraints: const BoxConstraints(maxWidth: 1200, maxHeight: 600),
           child: Card(
             child: Builder(
               builder: (context) {
                 if (!homeProvider.isLoading) {
-                  if (homeProvider.nfXmlList.isNotEmpty ||
-                      homeProvider.nfcXmlList.isNotEmpty) {
-                    return const MainBody();
-                  } else {
-                    return const NoItems();
-                  }
+                  return const MainBody();
                 } else {
                   return const SizedBox(
                     width: 150,
@@ -52,8 +45,8 @@ class HomePage extends StatelessWidget {
         ),
       ),
       floatingActionButton: FloatingActionButton.extended(
-        label:  Text('Arquivo'),
-        icon:  Icon(Icons.archive),
+        label: const Text('Arquivo'),
+        icon: const Icon(Icons.archive),
         onPressed: () => homeProvider.act(context),
       ),
     );
