@@ -16,6 +16,7 @@ class CheckboxWidget extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.fromLTRB(8, 8, 15, 8),
         child: Row(
+          mainAxisSize: MainAxisSize.min,
           children: [
             Checkbox(
               value: value,

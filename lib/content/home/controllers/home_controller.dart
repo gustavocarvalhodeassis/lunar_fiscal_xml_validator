@@ -11,7 +11,7 @@ import 'package:xml/xml.dart';
 
 class HomeController extends GetxController {
   //LISTAS
-  final List<XMLModel> _allXmlList = <XMLModel>[];
+  final Rx<List<XMLModel>> _allXmlList = Rx<List<XMLModel>>([]);
   Rx<List<XMLModel>> currentXmlList = Rx<List<XMLModel>>([]);
   Rx<List<int>> missingNumbers = Rx<List<int>>([]);
 
@@ -35,7 +35,7 @@ class HomeController extends GetxController {
 
   //RESET
   void reset() {
-    _allXmlList.clear();
+    _allXmlList.value.clear();
     currentXmlList.value.clear();
     searchController.value.clear();
     dateController.value.clear();
@@ -61,7 +61,7 @@ class HomeController extends GetxController {
         return;
       }
 
-      _allXmlList.clear();
+      _allXmlList.value.clear();
       currentXmlList.value.clear();
 
       await Future.forEach(
@@ -73,8 +73,8 @@ class HomeController extends GetxController {
               final doc = XmlDocument.parse(fileContent);
 
               XMLModel xml = XMLModel.fromXml(doc);
-              _allXmlList.add(xml);
-              currentXmlList.value = List.from(_allXmlList);
+              _allXmlList.value.add(xml);
+              currentXmlList.value = List.from(_allXmlList.value);
             }
           }
         },
@@ -87,39 +87,41 @@ class HomeController extends GetxController {
 
   Future<void> _getMissingXmls() async {
     try {
-      missingNumbers.value.clear();
-      List<XMLModel> xmls = List.from(currentXmlList.value);
+      if (currentXmlList.value.isNotEmpty) {
+        missingNumbers.value.clear();
+        List<XMLModel> xmls = List.from(currentXmlList.value);
 
-      Set<int> numerosNFSet = <int>{};
+        Set<int> numerosNFSet = <int>{};
 
-      await Future.forEach(
-        xmls,
-        (xml) {
-          if (xml.inutilizada) {
-            int numeroInutIni = int.parse(xml.numeroInutIni!.replaceAll(RegExp(r'\D'), ''));
-            int numeroInutFin = int.parse(xml.numeroInutFin!.replaceAll(RegExp(r'\D'), ''));
+        await Future.forEach(
+          xmls,
+          (xml) {
+            if (xml.inutilizada) {
+              int numeroInutIni = int.parse(xml.numeroInutIni!.replaceAll(RegExp(r'\D'), ''));
+              int numeroInutFin = int.parse(xml.numeroInutFin!.replaceAll(RegExp(r'\D'), ''));
 
-            for (int i = numeroInutIni; i <= numeroInutFin; i++) {
-              numerosNFSet.add(i);
+              for (int i = numeroInutIni; i <= numeroInutFin; i++) {
+                numerosNFSet.add(i);
+              }
             }
+
+            int? numero = int.tryParse(xml.numero.replaceAll(RegExp(r'\D'), ''));
+            if (numero != null) {
+              numerosNFSet.add(numero);
+            }
+          },
+        );
+
+        List<int> numerosNF = numerosNFSet.toList();
+        numerosNF.sort();
+
+        int firstNFNumero = numerosNF.first;
+        int lastNFNumero = numerosNF.last;
+
+        for (int numero = firstNFNumero; numero <= lastNFNumero; numero++) {
+          if (!numerosNFSet.contains(numero)) {
+            missingNumbers.value.add(numero);
           }
-
-          int? numero = int.tryParse(xml.numero.replaceAll(RegExp(r'\D'), ''));
-          if (numero != null) {
-            numerosNFSet.add(numero);
-          }
-        },
-      );
-
-      List<int> numerosNF = numerosNFSet.toList();
-      numerosNF.sort();
-
-      int firstNFNumero = numerosNF.first;
-      int lastNFNumero = numerosNF.last;
-
-      for (int numero = firstNFNumero; numero <= lastNFNumero; numero++) {
-        if (!numerosNFSet.contains(numero)) {
-          missingNumbers.value.add(numero);
         }
       }
     } catch (e) {
@@ -228,7 +230,7 @@ class HomeController extends GetxController {
 
   void handleFilters() {
     currentXmlList.value.clear();
-    currentXmlList.value = List.from(_allXmlList);
+    currentXmlList.value = List.from(_allXmlList.value);
 
     if (!mostrarAutorizadas.value) {
       currentXmlList.value.removeWhere((xml) => xml.autorizada == true);

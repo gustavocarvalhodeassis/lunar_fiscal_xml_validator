@@ -25,6 +25,7 @@ class _ResultBodyState extends State<ResultBody> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Container(
+          margin: const EdgeInsets.all(20),
           padding: const EdgeInsets.all(20),
           decoration: BoxDecoration(
             color: Theme.of(context).colorScheme.primary.withOpacity(0.05),
@@ -69,14 +70,20 @@ class _ResultBodyState extends State<ResultBody> {
         const SizedBox(
           height: 20,
         ),
+        Divider(),
+        const SizedBox(
+          height: 20,
+        ),
         Expanded(
-          child: SizedBox(
+          child: Container(
+            margin: const EdgeInsets.all(20),
             width: double.infinity,
             child: Builder(
               builder: (context) {
                 if (!_controller.isLoading.value) {
                   return SingleChildScrollView(
                     child: DataTable(
+                      border: TableBorder.all(width: 1, borderRadius: BorderRadius.circular(15), color: Theme.of(context).colorScheme.outline),
                       columns: const [
                         DataColumn(label: Text('Chave')),
                         DataColumn(label: Text('Numero')),
@@ -103,6 +110,53 @@ class _ResultBodyState extends State<ResultBody> {
                       }).toList(),
                     ),
                   );
+                  // return ExpandableTable(
+                  //   expanded: true,
+                  //   firstHeaderCell: ExpandableTableCell(
+                  //     child: Text('Chave'),
+                  //   ),
+                  //   firstColumnWidth: 300,
+                  //   headers: [
+                  //     ExpandableTableHeader(
+                  //       cell: ExpandableTableCell(child: Text('Número')),
+                  //     ),
+                  //     ExpandableTableHeader(
+                  //       cell: ExpandableTableCell(child: Text('Modelo')),
+                  //     ),
+                  //     ExpandableTableHeader(
+                  //       cell: ExpandableTableCell(child: Text('Data de emissão')),
+                  //     ),
+                  //     ExpandableTableHeader(
+                  //       cell: ExpandableTableCell(child: Text('Status')),
+                  //     ),
+                  //     ExpandableTableHeader(
+                  //       cell: ExpandableTableCell(child: Text('Valor')),
+                  //     ),
+                  //   ],
+                  //   rows: _controller.currentXmlList.value.map(
+                  //     (item) {
+                  //       return ExpandableTableRow(
+                  //         firstCell: ExpandableTableCell(
+                  //             child: Text(item.chave != null
+                  //                 ? item.chave!
+                  //                 : item.inutilizada
+                  //                     ? 'INUTILIZAÇÃO ${item.numeroInutIni} ATÉ ${item.numeroInutFin}'
+                  //                     : item.incorreta
+                  //                         ? 'NOTA INCORRETA - ${item.chave}'
+                  //                         : '')),
+                  //         cells: [
+                  //           ExpandableTableCell(child: Text(item.numero.isNotEmpty ? item.numero : '${item.numeroInutIni} - ${item.numeroInutFin}')),
+                  //           ExpandableTableCell(child: Text(item.modelo)),
+                  //           ExpandableTableCell(child: Text(dateToString(item.dataEmissao) ?? '')),
+                  //           ExpandableTableCell(
+                  //             child: Text(item.status),
+                  //           ),
+                  //           ExpandableTableCell(child: Text(doubleToCurrency(item.valor) ?? '')),
+                  //         ],
+                  //       );
+                  //     },
+                  //   ).toList(),
+                  // );
                 } else {
                   return const Center(
                     child: CircularProgressIndicator(),

@@ -15,13 +15,10 @@ class _MainBodyState extends State<MainBody> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.fromLTRB(35, 20, 35, 0),
-      child: Obx(
-        () => ResultBody(
-          xmls: _controller.currentXmlList.value,
-          missingNumbers: _controller.missingNumbers.value,
-        ),
+    return Obx(
+      () => ResultBody(
+        xmls: _controller.currentXmlList.value,
+        missingNumbers: _controller.missingNumbers.value,
       ),
     );
   }

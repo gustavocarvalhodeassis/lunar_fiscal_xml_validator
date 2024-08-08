@@ -17,8 +17,13 @@ class _BuildFilterFieldsState extends State<BuildFilterFields> {
   @override
   Widget build(BuildContext context) {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Row(
+        Wrap(
+          alignment: WrapAlignment.start,
+          runAlignment: WrapAlignment.start,
+          crossAxisAlignment: WrapCrossAlignment.start,
+          direction: Axis.horizontal,
           children: [
             Obx(
               () => CheckboxWidget(
@@ -70,12 +75,13 @@ class _BuildFilterFieldsState extends State<BuildFilterFields> {
         Row(
           children: [
             Expanded(
-              flex: 3,
+              flex: 2,
               child: Obx(
                 () => TextField(
                   onSubmitted: (value) {
                     _controller.handleFilters();
                   },
+                  onChanged: _controller.handleSearchOnChanged,
                   controller: _controller.searchController.value,
                   decoration: InputDecoration(
                     suffixIcon: IconButton(
@@ -113,7 +119,7 @@ class _BuildFilterFieldsState extends State<BuildFilterFields> {
                   ),
                 ),
               ),
-            ),
+            )
           ],
         )
       ],

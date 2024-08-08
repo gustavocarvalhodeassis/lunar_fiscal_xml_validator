@@ -3,22 +3,21 @@ import 'package:fiscal_validator/content/home/widgets/build_main_body.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    final _controller = Get.put(HomeController());
+  State<HomePage> createState() => _HomePageState();
+}
 
+class _HomePageState extends State<HomePage> {
+  final _controller = Get.put(HomeController());
+
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Lunar Validador XMLs'),
-        actions: [
-          IconButton(
-            onPressed: () => _controller.reset(),
-            icon: const Icon(Icons.refresh),
-          )
-        ],
       ),
       body: Center(
         child: SizedBox(
