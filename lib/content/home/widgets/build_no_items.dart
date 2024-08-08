@@ -1,16 +1,23 @@
-import 'package:fiscal_validator/content/home/controllers/home_provider.dart';
+import 'package:fiscal_validator/content/home/controllers/home_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 
-class NoItems extends StatelessWidget {
+class NoItems extends StatefulWidget {
   const NoItems({super.key});
 
   @override
+  State<NoItems> createState() => _NoItemsState();
+}
+
+class _NoItemsState extends State<NoItems> {
+  final _controller = Get.put(HomeController());
+
+  @override
   Widget build(BuildContext context) {
-    final homeProvider = Provider.of<HomeProvider>(context);
     return InkWell(
       borderRadius: BorderRadius.circular(15),
-      onTap: () => homeProvider.act(context),
+      onTap: () => _controller.collectArchives(),
       child: Container(
         margin: const EdgeInsets.all(20),
         decoration: BoxDecoration(

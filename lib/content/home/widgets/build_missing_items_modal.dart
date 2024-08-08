@@ -1,15 +1,21 @@
-import 'package:fiscal_validator/content/home/controllers/home_provider.dart';
+import 'package:fiscal_validator/content/home/controllers/home_controller.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:get/get.dart';
 
-class MissingItems extends StatelessWidget {
+class MissingItems extends StatefulWidget {
   const MissingItems({super.key, required this.missingItems});
 
   final List<int> missingItems;
 
   @override
+  State<MissingItems> createState() => _MissingItemsState();
+}
+
+class _MissingItemsState extends State<MissingItems> {
+  final _controller = Get.put(HomeController());
+
+  @override
   Widget build(BuildContext context) {
-    final homeProvider = Provider.of<HomeProvider>(context);
     return AlertDialog(
       contentPadding: EdgeInsets.zero,
       title: Column(
@@ -19,7 +25,7 @@ class MissingItems extends StatelessWidget {
             style: Theme.of(context).textTheme.bodyLarge,
           ),
           Text(
-            '${missingItems.length}',
+            '${widget.missingItems.length}',
             style: Theme.of(context).textTheme.displayLarge,
           ),
         ],
@@ -41,18 +47,18 @@ class MissingItems extends StatelessWidget {
             Expanded(
               child: ListView.builder(
                 padding: EdgeInsets.zero,
-                itemCount: missingItems.length,
+                itemCount: widget.missingItems.length,
                 itemBuilder: (context, index) => Column(
                   children: [
                     ListTile(
-                      onTap: () => homeProvider.copyText(context, text: missingItems[index].toString()),
+                      onTap: () => _controller.copyText(widget.missingItems[index].toString()),
                       contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                       title: Text(
-                        missingItems[index].toString(),
+                        widget.missingItems[index].toString(),
                         style: Theme.of(context).textTheme.titleLarge!.copyWith(fontWeight: FontWeight.bold),
                       ),
                       trailing: IconButton(
-                        onPressed: () => homeProvider.copyText(context, text: missingItems[index].toString()),
+                        onPressed: () => _controller.copyText(widget.missingItems[index].toString()),
                         icon: const Icon(Icons.copy),
                       ),
                     ),

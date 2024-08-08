@@ -1,21 +1,21 @@
-import 'package:fiscal_validator/content/home/controllers/home_provider.dart';
+import 'package:fiscal_validator/content/home/controllers/home_controller.dart';
 import 'package:fiscal_validator/content/home/widgets/build_main_body.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:get/get.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final homeProvider = Provider.of<HomeProvider>(context);
+    final _controller = Get.put(HomeController());
 
     return Scaffold(
       appBar: AppBar(
         title: const Text('Lunar Validador XMLs'),
         actions: [
           IconButton(
-            onPressed: () => homeProvider.reset(),
+            onPressed: () => _controller.reset(),
             icon: const Icon(Icons.refresh),
           )
         ],
@@ -26,7 +26,7 @@ class HomePage extends StatelessWidget {
           child: Card(
             child: Builder(
               builder: (context) {
-                if (!homeProvider.isLoading) {
+                if (!_controller.isLoading.value) {
                   return const MainBody();
                 } else {
                   return const SizedBox(
@@ -47,7 +47,7 @@ class HomePage extends StatelessWidget {
       floatingActionButton: FloatingActionButton.extended(
         label: const Text('Arquivo'),
         icon: const Icon(Icons.archive),
-        onPressed: () => homeProvider.act(context),
+        onPressed: () => _controller.collectArchives(),
       ),
     );
   }
