@@ -1,3 +1,5 @@
+EXE DOWNLOAD LINK: 
+
 Lunar Fiscal XML Validator
 
 Lunar Fiscal XML Validator é um aplicativo desktop desenvolvido em Flutter, projetado para facilitar a leitura e validação de XMLs de Notas Fiscais Eletrônicas (NFe) e de Cupons Fiscais Eletrônicos (NFCe). Este programa permite que os usuários façam uma análise detalhada de suas notas fiscais, identificando números faltantes, verificando a situação de cada nota (incorreta, inutilizada, cancelada, autorizada), e calculando o valor total das notas.
