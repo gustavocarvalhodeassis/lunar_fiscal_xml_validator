@@ -1,19 +1,14 @@
 import 'package:fiscal_validator/content/home/controllers/home_controller.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 
-class HomeMissingItemsAlertDialog extends StatefulWidget {
-  const HomeMissingItemsAlertDialog({super.key});
+class HomeMissingItemsAlertDialog extends StatelessWidget {
+  const HomeMissingItemsAlertDialog({super.key, required this.missingNumbers});
 
-  @override
-  State<HomeMissingItemsAlertDialog> createState() => _HomeMissingItemsAlertDialogState();
-}
-
-class _HomeMissingItemsAlertDialogState extends State<HomeMissingItemsAlertDialog> {
-  final _controller = Get.put(HomeController());
+  final List<int> missingNumbers;
 
   @override
   Widget build(BuildContext context) {
+    final _controller = HomeController();
     return AlertDialog(
       contentPadding: EdgeInsets.zero,
       title: Column(
@@ -22,11 +17,9 @@ class _HomeMissingItemsAlertDialogState extends State<HomeMissingItemsAlertDialo
             'Numeros Faltantes',
             style: Theme.of(context).textTheme.bodyLarge,
           ),
-          Obx(
-            () => Text(
-              '${_controller.missingNumbers.value.length}',
-              style: Theme.of(context).textTheme.displayLarge,
-            ),
+          Text(
+            '${missingNumbers.length}',
+            style: Theme.of(context).textTheme.displayLarge,
           ),
         ],
       ),
@@ -45,30 +38,28 @@ class _HomeMissingItemsAlertDialogState extends State<HomeMissingItemsAlertDialo
               height: 1,
             ),
             Expanded(
-              child: Obx(
-                () => ListView.builder(
-                  padding: EdgeInsets.zero,
-                  itemCount: _controller.missingNumbers.value.length,
-                  itemBuilder: (context, index) => Column(
-                    children: [
-                      ListTile(
-                        onTap: () => _controller.copyText(_controller.missingNumbers.value[index].toString()),
-                        contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                        title: Text(
-                          _controller.missingNumbers.value[index].toString(),
-                          style: Theme.of(context).textTheme.titleLarge!.copyWith(fontWeight: FontWeight.bold),
-                        ),
-                        trailing: IconButton(
-                          onPressed: () => _controller.copyText(_controller.missingNumbers.value[index].toString()),
-                          icon: const Icon(Icons.copy),
-                        ),
+              child: ListView.builder(
+                padding: EdgeInsets.zero,
+                itemCount: missingNumbers.length,
+                itemBuilder: (context, index) => Column(
+                  children: [
+                    ListTile(
+                      onTap: () => _controller.copyText(missingNumbers[index].toString()),
+                      contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                      title: Text(
+                        missingNumbers[index].toString(),
+                        style: Theme.of(context).textTheme.titleLarge!.copyWith(fontWeight: FontWeight.bold),
                       ),
-                      Divider(
-                        color: Theme.of(context).colorScheme.outline,
-                        height: 1,
-                      )
-                    ],
-                  ),
+                      trailing: IconButton(
+                        onPressed: () => _controller.copyText(missingNumbers[index].toString()),
+                        icon: const Icon(Icons.copy),
+                      ),
+                    ),
+                    Divider(
+                      color: Theme.of(context).colorScheme.outline,
+                      height: 1,
+                    )
+                  ],
                 ),
               ),
             ),

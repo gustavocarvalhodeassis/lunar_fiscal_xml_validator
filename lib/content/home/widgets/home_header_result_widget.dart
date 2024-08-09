@@ -1,19 +1,16 @@
 import 'package:fiscal_validator/content/home/controllers/home_controller.dart';
 import 'package:fiscal_validator/content/home/widgets/home_header_filters_widget.dart';
 import 'package:fiscal_validator/content/home/widgets/home_missing_items_alert_dialog.dart';
+import 'package:fiscal_validator/global/widgets/gap_widget.dart';
 import 'package:fiscal_validator/util/convertes.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 
-class HomeHeaderResultWidget extends StatefulWidget {
-  const HomeHeaderResultWidget({super.key});
+class HomeHeaderResultWidget extends StatelessWidget {
+  const HomeHeaderResultWidget({super.key, required this.totalValue, required this.missingNumbers, required this.controller});
 
-  @override
-  State<HomeHeaderResultWidget> createState() => _HomeHeaderResultWidgetState();
-}
-
-class _HomeHeaderResultWidgetState extends State<HomeHeaderResultWidget> {
-  final _controller = Get.put(HomeController());
+  final double totalValue;
+  final List<int> missingNumbers;
+  final HomeController controller;
 
   @override
   Widget build(BuildContext context) {
@@ -29,36 +26,32 @@ class _HomeHeaderResultWidgetState extends State<HomeHeaderResultWidget> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Obx(
-                () => Text(
-                  'Valor Total: ${doubleToCurrency(_controller.calculateTotal(_controller.currentXmlList.value))}',
-                  style: Theme.of(context).textTheme.displaySmall,
-                ),
+              Text(
+                'Valor Total: ${doubleToCurrency(totalValue)}',
+                style: Theme.of(context).textTheme.displaySmall,
               ),
-              Obx(
-                () => TextButton(
-                  onPressed: () {
-                    showDialog(
-                      context: context,
-                      builder: (context) => HomeMissingItemsAlertDialog(),
-                    );
-                  },
-                  child: Text(
-                    'Numeros Faltantes: ${_controller.missingNumbers..value.length}',
-                    style: Theme.of(context).textTheme.bodyLarge,
-                  ),
+              TextButton(
+                onPressed: () {
+                  showDialog(
+                    context: context,
+                    builder: (context) => HomeMissingItemsAlertDialog(
+                      missingNumbers: missingNumbers,
+                    ),
+                  );
+                },
+                child: Text(
+                  'Numeros Faltantes: ${missingNumbers.length}',
+                  style: Theme.of(context).textTheme.bodyLarge,
                 ),
               ),
             ],
           ),
-          const SizedBox(
-            height: 20,
-          ),
+          Gapv20(),
           const Divider(),
-          const SizedBox(
-            height: 20,
-          ),
-          const HomeHeaderFiltersWidget()
+          Gapv20(),
+          HomeHeaderFiltersWidget(
+            controller: controller,
+          )
         ],
       ),
     );

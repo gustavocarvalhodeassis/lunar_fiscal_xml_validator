@@ -27,15 +27,20 @@ class _HomePageState extends State<HomePage> {
           child: Builder(
             builder: (context) {
               if (!_controller.isLoading.value) {
-                return Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    HomeHeaderResultWidget(),
-                    Gapv20(),
-                    Divider(),
-                    HomeTableResultWidget(),
-                    Gapv20(),
-                  ],
+                return Obx(
+                  () => Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      HomeHeaderResultWidget(
+                        totalValue: _controller.calculateTotal(_controller.currentXmlList.value),
+                        missingNumbers: _controller.missingNumbers.value,
+                        controller: _controller,
+                      ),
+                      Gapv20(),
+                      Divider(),
+                      HomeTableResultWidget(xmlList: _controller.currentXmlList.value),
+                    ],
+                  ),
                 );
               } else {
                 return const SizedBox(

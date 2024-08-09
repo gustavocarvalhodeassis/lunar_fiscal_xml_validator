@@ -4,15 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
-class HomeHeaderFiltersWidget extends StatefulWidget {
-  const HomeHeaderFiltersWidget({super.key});
+class HomeHeaderFiltersWidget extends StatelessWidget {
+  const HomeHeaderFiltersWidget({super.key, required this.controller});
 
-  @override
-  State<HomeHeaderFiltersWidget> createState() => _HomeHeaderFiltersWidgetState();
-}
-
-class _HomeHeaderFiltersWidgetState extends State<HomeHeaderFiltersWidget> {
-  final _controller = Get.put(HomeController());
+  final HomeController controller;
 
   @override
   Widget build(BuildContext context) {
@@ -27,43 +22,43 @@ class _HomeHeaderFiltersWidgetState extends State<HomeHeaderFiltersWidget> {
           children: [
             Obx(
               () => CheckboxWidget(
-                value: _controller.mostrarAutorizadas.value,
-                onChanged: _controller.handleFilterAutorizada,
+                value: controller.mostrarAutorizadas.value,
+                onChanged: controller.handleFilterAutorizada,
                 label: 'Autorizadas',
               ),
             ),
             Obx(
               () => CheckboxWidget(
-                value: _controller.mostrarCanceladas.value,
-                onChanged: _controller.handleFilterCancelada,
+                value: controller.mostrarCanceladas.value,
+                onChanged: controller.handleFilterCancelada,
                 label: 'Canceladas',
               ),
             ),
             Obx(
               () => CheckboxWidget(
-                value: _controller.mostrarInutilizadas.value,
-                onChanged: _controller.handleFilterInutilizada,
+                value: controller.mostrarInutilizadas.value,
+                onChanged: controller.handleFilterInutilizada,
                 label: 'Inutilizadas',
               ),
             ),
             Obx(
               () => CheckboxWidget(
-                value: _controller.mostrarIncorretas.value,
-                onChanged: _controller.handleFilterIncorreta,
+                value: controller.mostrarIncorretas.value,
+                onChanged: controller.handleFilterIncorreta,
                 label: 'Incorretas',
               ),
             ),
             Obx(
               () => CheckboxWidget(
-                value: _controller.mostrarModelo55.value,
-                onChanged: _controller.handleFilterModelo55,
+                value: controller.mostrarModelo55.value,
+                onChanged: controller.handleFilterModelo55,
                 label: 'NF-e (Modelo 55)',
               ),
             ),
             Obx(
               () => CheckboxWidget(
-                value: _controller.mostrarModelo65.value,
-                onChanged: _controller.handleFilterModelo65,
+                value: controller.mostrarModelo65.value,
+                onChanged: controller.handleFilterModelo65,
                 label: 'NFC-e (Modelo 65)',
               ),
             ),
@@ -79,14 +74,14 @@ class _HomeHeaderFiltersWidgetState extends State<HomeHeaderFiltersWidget> {
               child: Obx(
                 () => TextField(
                   onSubmitted: (value) {
-                    _controller.handleFilters();
+                    controller.handleFilters();
                   },
-                  onChanged: _controller.handleSearchOnChanged,
-                  controller: _controller.searchController.value,
+                  onChanged: controller.handleSearchOnChanged,
+                  controller: controller.searchController.value,
                   decoration: InputDecoration(
                     suffixIcon: IconButton(
                         onPressed: () {
-                          _controller.handleFilters();
+                          controller.handleFilters();
                         },
                         icon: const Icon(Icons.search_outlined)),
                     labelText: 'Pesquisar',
@@ -102,16 +97,16 @@ class _HomeHeaderFiltersWidgetState extends State<HomeHeaderFiltersWidget> {
               flex: 1,
               child: Obx(
                 () => TextField(
-                  onChanged: _controller.handleDateOnChanged,
-                  onSubmitted: (value) => _controller.handleFilters(),
-                  controller: _controller.dateController.value,
+                  onChanged: controller.handleDateOnChanged,
+                  onSubmitted: (value) => controller.handleFilters(),
+                  controller: controller.dateController.value,
                   inputFormatters: [
                     MaskTextInputFormatter(mask: '##/##/#### Até ##/##/####', filter: {"#": RegExp(r'[0-9]')}, type: MaskAutoCompletionType.lazy)
                   ],
                   decoration: InputDecoration(
                     suffixIcon: IconButton(
                         onPressed: () {
-                          _controller.handleDateRangePicker(context);
+                          controller.handleDateRangePicker(context);
                         },
                         icon: const Icon(Icons.date_range_outlined)),
                     labelText: 'Periodo',

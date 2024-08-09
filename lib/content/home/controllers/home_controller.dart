@@ -49,6 +49,7 @@ class HomeController extends GetxController {
     isLoading.value = false;
   }
 
+  //AÇÃO PARA ABRIR PASTA E COLETAR OS XMLS
   Future<void> _getAllXMLs() async {
     try {
       FilePickerResult? result = await FilePicker.platform.pickFiles(
@@ -85,6 +86,7 @@ class HomeController extends GetxController {
     }
   }
 
+  //VERIFICAR NUMEÇÕES NAO LISTADAS
   Future<void> _getMissingXmls() async {
     try {
       if (currentXmlList.value.isNotEmpty) {
@@ -129,6 +131,7 @@ class HomeController extends GetxController {
     }
   }
 
+  //CHANGES DOS FILTROS
   void handleFilterAutorizada(bool? value) {
     mostrarAutorizadas.value = !mostrarAutorizadas.value;
     handleFilters();
@@ -197,11 +200,7 @@ class HomeController extends GetxController {
   }
 
   handleSearchOnChanged(String? value) {
-    if (value != null) {
-      if (value.isEmpty) {
-        handleFilters();
-      }
-    }
+    handleFilters();
   }
 
   void _applySearchFilter() {
