@@ -1,5 +1,7 @@
 import 'package:fiscal_validator/content/home/controllers/home_controller.dart';
-import 'package:fiscal_validator/content/home/widgets/build_main_body.dart';
+import 'package:fiscal_validator/content/home/widgets/home_header_result_widget.dart';
+import 'package:fiscal_validator/content/home/widgets/home_table_result_widget.dart';
+import 'package:fiscal_validator/global/widgets/gap_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -22,24 +24,31 @@ class _HomePageState extends State<HomePage> {
       body: Center(
         child: SizedBox(
           width: double.infinity,
-          child: Card(
-            child: Builder(
-              builder: (context) {
-                if (!_controller.isLoading.value) {
-                  return const MainBody();
-                } else {
-                  return const SizedBox(
-                    width: 150,
-                    height: 600,
-                    child: Align(
-                      child: CircularProgressIndicator(
-                        strokeWidth: 2,
-                      ),
+          child: Builder(
+            builder: (context) {
+              if (!_controller.isLoading.value) {
+                return Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    HomeHeaderResultWidget(),
+                    Gapv20(),
+                    Divider(),
+                    HomeTableResultWidget(),
+                    Gapv20(),
+                  ],
+                );
+              } else {
+                return const SizedBox(
+                  width: 150,
+                  height: 600,
+                  child: Align(
+                    child: CircularProgressIndicator(
+                      strokeWidth: 2,
                     ),
-                  );
-                }
-              },
-            ),
+                  ),
+                );
+              }
+            },
           ),
         ),
       ),

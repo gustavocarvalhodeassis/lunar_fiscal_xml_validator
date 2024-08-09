@@ -4,14 +4,14 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
-class BuildFilterFields extends StatefulWidget {
-  const BuildFilterFields({super.key});
+class HomeHeaderFiltersWidget extends StatefulWidget {
+  const HomeHeaderFiltersWidget({super.key});
 
   @override
-  State<BuildFilterFields> createState() => _BuildFilterFieldsState();
+  State<HomeHeaderFiltersWidget> createState() => _HomeHeaderFiltersWidgetState();
 }
 
-class _BuildFilterFieldsState extends State<BuildFilterFields> {
+class _HomeHeaderFiltersWidgetState extends State<HomeHeaderFiltersWidget> {
   final _controller = Get.put(HomeController());
 
   @override
