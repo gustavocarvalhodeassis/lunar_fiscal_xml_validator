@@ -1,4 +1,5 @@
-EXE DOWNLOAD LINK: 
+EXE DOWNLOAD LINK: https://github.com/gustavocarvalhodeassis/lunar_fiscal_xml_validator/blob/main/EXE/Lunar%20Fiscal%20XML%20Validator.rar
+OBS: APENAS EXTRAIA E EXECUTE O .EXE
 
 Lunar Fiscal XML Validator
 
